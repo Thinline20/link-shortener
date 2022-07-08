@@ -6,11 +6,14 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = "file:./db.sqlite"
-    // url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
-model Example {
-    id String @id @default(cuid())
+model LinkShort {
+    id   Int    @id @default(autoincrement())
+    url  String @unique @db.VarChar(1000)
+    slug String @unique
+
+    @@index(slug)
 }
